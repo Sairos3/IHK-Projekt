@@ -4,7 +4,6 @@ from wareneingang.pipeline import invoice_extract_for_import, delivery_extract_f
 from wareneingang.logger import setup_logger
 from wareneingang.db import init_db, fetch_all_invoice_lines, fetch_all_delivery_lines
 from wareneingang.importer import import_folder
-from wareneingang.pipeline import extract_invoice_lines_dict, extract_delivery_lines_dict
 from wareneingang.status import build_status
 from wareneingang.export_excel import export_status_xlsx
 

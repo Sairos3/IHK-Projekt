@@ -160,3 +160,99 @@
 2026-03-05 12:26:56,245 | INFO | SKIP duplicate: WhatsApp Image 2026-03-05 at 10.34.25.jpeg
 2026-03-05 12:26:56,250 | INFO | DB totals: invoices=2 delivery_lines=2
 2026-03-05 12:26:56,283 | INFO | Excel exported: output\Wareneingang_Status_20260305_122656.xlsx
+2026-03-05 13:18:53,941 | INFO | SKIP duplicate: BackFlow Rechnung 1 (1) 2.pdf
+2026-03-05 13:18:53,962 | INFO | SKIP duplicate: BackFlow Rechnung121212.pdf
+2026-03-05 13:18:53,983 | INFO | SKIP duplicate: Lieferschein.pdf
+2026-03-05 13:18:54,001 | INFO | SKIP duplicate: WhatsApp Image 2026-03-05 at 10.34.25.jpeg
+2026-03-05 13:19:04,049 | INFO | IMPORTED delivery: WhatsApp Image 2026-03-05 at 13.15.06.jpeg (match_key=CUST:123456789, lines=0)
+2026-03-05 13:19:04,064 | INFO | DB totals: invoices=2 delivery_lines=2
+2026-03-05 13:19:04,101 | INFO | Excel exported: output\Wareneingang_Status_20260305_131904.xlsx
+2026-03-05 13:19:59,395 | INFO | SKIP duplicate: BackFlow Rechnung 1 (1) 2.pdf
+2026-03-05 13:20:00,297 | INFO | IMPORTED invoice: BackFlow Rechnung 3 50stk.pdf (match_key=CUST:9099909, lines=1)
+2026-03-05 13:20:00,324 | INFO | SKIP duplicate: BackFlow Rechnung121212.pdf
+2026-03-05 13:20:00,328 | INFO | SKIP duplicate: Lieferschein.pdf
+2026-03-05 13:20:00,334 | INFO | SKIP duplicate: WhatsApp Image 2026-03-05 at 10.34.25.jpeg
+2026-03-05 13:20:00,337 | INFO | SKIP duplicate: WhatsApp Image 2026-03-05 at 13.15.06.jpeg
+2026-03-05 13:20:00,341 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 13:20:00,384 | INFO | Excel exported: output\Wareneingang_Status_20260305_132000.xlsx
+2026-03-05 13:20:33,561 | INFO | SKIP duplicate: BackFlow Rechnung 1 (1) 2.pdf
+2026-03-05 13:20:33,565 | INFO | SKIP duplicate: BackFlow Rechnung 3 50stk.pdf
+2026-03-05 13:20:33,568 | INFO | SKIP duplicate: BackFlow Rechnung121212.pdf
+2026-03-05 13:20:33,573 | INFO | SKIP duplicate: Lieferschein.pdf
+2026-03-05 13:20:33,576 | INFO | SKIP duplicate: WhatsApp Image 2026-03-05 at 10.34.25.jpeg
+2026-03-05 13:20:33,581 | INFO | SKIP duplicate: WhatsApp Image 2026-03-05 at 13.15.06.jpeg
+2026-03-05 13:20:41,820 | INFO | IMPORTED delivery: WhatsApp Image 2026-03-05 at 13.16.12.jpeg (match_key=LS:987654321, lines=0)
+2026-03-05 13:20:41,835 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 13:20:41,861 | INFO | Excel exported: output\Wareneingang_Status_20260305_132041.xlsx
+2026-03-05 13:23:10,281 | INFO | SKIP duplicate: BackFlow Rechnung 1 (1) 2.pdf
+2026-03-05 13:23:10,285 | INFO | SKIP duplicate: BackFlow Rechnung 3 50stk.pdf
+2026-03-05 13:23:10,288 | INFO | SKIP duplicate: BackFlow Rechnung121212.pdf
+2026-03-05 13:23:10,292 | INFO | SKIP duplicate: 1.jpeg
+2026-03-05 13:23:10,295 | INFO | SKIP duplicate: 2.jpeg
+2026-03-05 13:23:10,299 | INFO | SKIP duplicate: Lieferschein.pdf
+2026-03-05 13:23:10,304 | INFO | SKIP duplicate: WhatsApp Image 2026-03-05 at 10.34.25.jpeg
+2026-03-05 13:23:10,308 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 13:23:10,338 | INFO | Excel exported: output\Wareneingang_Status_20260305_132310.xlsx
+2026-03-05 13:29:51,595 | INFO | SKIP duplicate: BackFlow Rechnung 1 (1) 2.pdf
+2026-03-05 13:29:51,598 | INFO | SKIP duplicate: BackFlow Rechnung 3 50stk.pdf
+2026-03-05 13:29:51,601 | INFO | SKIP duplicate: BackFlow Rechnung121212.pdf
+2026-03-05 13:30:03,517 | INFO | IMPORTED delivery: 1.jpeg (match_key=LS:987654321, lines=0)
+2026-03-05 13:30:11,702 | INFO | IMPORTED delivery: 2.jpeg (match_key=LS:987654321, lines=0)
+2026-03-05 13:30:11,715 | INFO | SKIP duplicate: Lieferschein.pdf
+2026-03-05 13:30:11,718 | INFO | SKIP duplicate: WhatsApp Image 2026-03-05 at 10.34.25.jpeg
+2026-03-05 13:30:11,721 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 13:30:11,748 | INFO | Excel exported: output\Wareneingang_Status_20260305_133011.xlsx
+2026-03-05 13:34:27,213 | INFO | IMPORTED invoice: BackFlow Rechnung 1 (1) 2.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 13:34:28,124 | INFO | IMPORTED invoice: BackFlow Rechnung 3 50stk.pdf (match_key=CUST:9099909, lines=1)
+2026-03-05 13:34:29,027 | INFO | IMPORTED invoice: BackFlow Rechnung121212.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 13:34:39,267 | INFO | IMPORTED delivery: 1.jpeg (match_key=LS:987654321, lines=0)
+2026-03-05 13:34:47,842 | INFO | IMPORTED delivery: 2.jpeg (match_key=LS:987654321, lines=0)
+2026-03-05 13:34:55,670 | INFO | IMPORTED delivery: Lieferschein.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 13:35:03,784 | INFO | IMPORTED delivery: WhatsApp Image 2026-03-05 at 10.34.25.jpeg (match_key=CUST:123456789, lines=1)
+2026-03-05 13:35:03,821 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 13:35:03,841 | INFO | Excel exported: output\Wareneingang_Status_20260305_133503.xlsx
+2026-03-05 14:08:52,586 | INFO | IMPORTED invoice: BackFlow Rechnung 1 (1) 2.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 14:08:53,439 | INFO | IMPORTED invoice: BackFlow Rechnung 3 50stk.pdf (match_key=CUST:9099909, lines=1)
+2026-03-05 14:08:54,257 | INFO | IMPORTED invoice: BackFlow Rechnung121212.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 14:09:03,757 | INFO | IMPORTED delivery: 1.jpeg (match_key=LS:987654321, lines=0)
+2026-03-05 14:09:11,759 | INFO | IMPORTED delivery: 2.jpeg (match_key=LS:987654321, lines=0)
+2026-03-05 14:09:18,178 | INFO | IMPORTED delivery: Lieferschein.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 14:09:26,449 | INFO | IMPORTED delivery: WhatsApp Image 2026-03-05 at 10.34.25.jpeg (match_key=CUST:123456789, lines=1)
+2026-03-05 14:09:26,480 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 14:09:26,503 | INFO | Excel exported: output\Wareneingang_Status_20260305_140926.xlsx
+2026-03-05 15:03:59,639 | INFO | IMPORTED invoice: BackFlow Rechnung 1 (1) 2.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:04:00,524 | INFO | IMPORTED invoice: BackFlow Rechnung 3 50stk.pdf (match_key=CUST:9099909, lines=1)
+2026-03-05 15:04:01,252 | INFO | IMPORTED invoice: BackFlow Rechnung121212.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:04:16,226 | INFO | IMPORTED delivery: 1.jpeg (match_key=CUST:987654321, lines=0)
+2026-03-05 15:04:28,679 | INFO | IMPORTED delivery: 2.jpeg (match_key=CUST:88155103, lines=0)
+2026-03-05 15:04:34,959 | INFO | IMPORTED delivery: Lieferschein.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:04:46,297 | INFO | IMPORTED delivery: WhatsApp Image 2026-03-05 at 10.34.25.jpeg (match_key=CUST:123456789, lines=1)
+2026-03-05 15:04:46,332 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 15:04:46,373 | INFO | Excel exported: output\Wareneingang_Status_20260305_150446.xlsx
+2026-03-05 15:08:30,252 | INFO | IMPORTED invoice: BackFlow Rechnung 1 (1) 2.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:08:31,169 | INFO | IMPORTED invoice: BackFlow Rechnung 3 50stk.pdf (match_key=CUST:9099909, lines=1)
+2026-03-05 15:08:31,928 | INFO | IMPORTED invoice: BackFlow Rechnung121212.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:08:48,514 | INFO | IMPORTED delivery: 1.jpeg (match_key=CUST:987654321, lines=0)
+2026-03-05 15:09:03,422 | INFO | IMPORTED delivery: 2.jpeg (match_key=CUST:88155103, lines=0)
+2026-03-05 15:09:11,377 | INFO | IMPORTED delivery: Lieferschein.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:09:26,123 | INFO | IMPORTED delivery: WhatsApp Image 2026-03-05 at 10.34.25.jpeg (match_key=CUST:123456789, lines=1)
+2026-03-05 15:09:26,157 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 15:09:26,203 | INFO | Excel exported: output\Wareneingang_Status_20260305_150926.xlsx
+2026-03-05 15:14:53,342 | INFO | IMPORTED invoice: BackFlow Rechnung 1 (1) 2.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:14:54,180 | INFO | IMPORTED invoice: BackFlow Rechnung 3 50stk.pdf (match_key=CUST:9099909, lines=1)
+2026-03-05 15:14:54,941 | INFO | IMPORTED invoice: BackFlow Rechnung121212.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:15:09,562 | INFO | IMPORTED delivery: 1.jpeg (match_key=CUST:987654321, lines=0)
+2026-03-05 15:15:21,817 | INFO | IMPORTED delivery: 2.jpeg (match_key=CUST:88155103, lines=0)
+2026-03-05 15:15:28,486 | INFO | IMPORTED delivery: Lieferschein.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:15:39,999 | INFO | IMPORTED delivery: WhatsApp Image 2026-03-05 at 10.34.25.jpeg (match_key=CUST:123456789, lines=1)
+2026-03-05 15:15:40,023 | INFO | DB totals: invoices=3 delivery_lines=2
+2026-03-05 15:15:40,049 | INFO | Excel exported: output\Wareneingang_Status_20260305_151540.xlsx
+2026-03-05 15:34:05,340 | INFO | IMPORTED invoice: BackFlow Rechnung 1 (1) 2.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:34:06,152 | INFO | IMPORTED invoice: BackFlow Rechnung 3 50stk.pdf (match_key=CUST:9099909, lines=1)
+2026-03-05 15:34:06,871 | INFO | IMPORTED invoice: BackFlow Rechnung121212.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:34:20,413 | INFO | IMPORTED delivery: 1.jpeg (match_key=CUST:123456789, lines=1)
+2026-03-05 15:34:31,672 | INFO | IMPORTED delivery: 2.jpeg (match_key=CUST:123456789, lines=1)
+2026-03-05 15:34:38,149 | INFO | IMPORTED delivery: Lieferschein.pdf (match_key=CUST:123456789, lines=1)
+2026-03-05 15:34:48,977 | INFO | IMPORTED delivery: WhatsApp Image 2026-03-05 at 10.34.25.jpeg (match_key=CUST:123456789, lines=1)
+2026-03-05 15:34:49,001 | INFO | DB totals: invoices=3 delivery_lines=4
+2026-03-05 15:34:49,039 | INFO | Excel exported: output\Wareneingang_Status_20260305_153449.xlsx

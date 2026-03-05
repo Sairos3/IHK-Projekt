@@ -73,3 +73,112 @@ def ocr_pdf_to_text(pdf_path: str, lang: str = None) -> str:
         pre = _preprocess(p)
         texts.append(pytesseract.image_to_string(pre, lang=use_lang, config="--oem 3 --psm 6"))
     return "\n".join(texts)
+
+def extract_qty_under_menge_header(image_path: str) -> float:
+    """
+    Detect the 'Menge' header and OCR the entire column below it.
+    Works for handwritten quantities.
+    """
+    import re
+    import cv2
+    import numpy as np
+    import pytesseract
+    from PIL import Image
+    from pathlib import Path
+
+    pytesseract.pytesseract.tesseract_cmd = TESSERACT_CMD
+
+    img = Image.open(image_path).convert("RGB")
+    bgr = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+
+    pre = _preprocess(img)
+
+    data = pytesseract.image_to_data(
+        pre,
+        lang=OCR_LANG,
+        config="--oem 3 --psm 6",
+        output_type=pytesseract.Output.DICT
+    )
+
+    menge_box = None
+    for i, txt in enumerate(data["text"]):
+        if txt.strip().lower().startswith("menge"):
+            menge_box = (
+                data["left"][i],
+                data["top"][i],
+                data["width"][i],
+                data["height"][i]
+            )
+            break
+
+    if not menge_box:
+        return 0.0
+
+    x, y, w, h = menge_box
+    H, W = pre.shape
+
+    # column area under the header
+    x1 = max(x - int(0.3 * w), 0)
+    x2 = min(x + int(3.0 * w), W)
+
+    y1 = y + int(1.2 * h)
+    y2 = min(H, y + int(40 * h))   # go far down to include table rows
+
+    roi = pre[y1:y2, x1:x2]
+
+    Path("output").mkdir(exist_ok=True)
+    cv2.imwrite("output/debug_qty_roi.png", roi)
+
+    txt = pytesseract.image_to_string(
+        roi,
+        config="--psm 6 -c tessedit_char_whitelist=0123456789.,"
+    )
+
+    m = re.search(r"\d+(?:[.,]\d+)?", txt)
+
+    if not m:
+        return 0.0
+
+    return float(m.group(0).replace(",", "."))
+
+def extract_customer_no_from_lieferschein_image(image_path: str) -> str:
+    """
+    Robustly extract Kunden-Nr from the top-right header area of a Lieferschein photo.
+    Works even if printed number is overwritten by handwriting.
+    """
+    import re
+    import cv2
+    import numpy as np
+    import pytesseract
+    from PIL import Image
+    from pathlib import Path
+
+    pytesseract.pytesseract.tesseract_cmd = TESSERACT_CMD
+
+    img = Image.open(image_path).convert("RGB")
+    bgr = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    h, w = bgr.shape[:2]
+
+    # top-right header area where Kunden-Nr is printed/written
+    x1, x2 = int(0.58 * w), int(0.98 * w)
+    y1, y2 = int(0.08 * h), int(0.30 * h)
+    roi = bgr[y1:y2, x1:x2]
+
+    gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+    gray = cv2.resize(gray, None, fx=2.0, fy=2.0, interpolation=cv2.INTER_CUBIC)
+    gray = cv2.GaussianBlur(gray, (5, 5), 0)
+    _, th = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    # debug (optional but useful)
+    Path("output").mkdir(exist_ok=True)
+    cv2.imwrite("output/debug_customer_roi.png", roi)
+    cv2.imwrite("output/debug_customer_thresh.png", th)
+
+    txt = pytesseract.image_to_string(
+        th,
+        lang=OCR_LANG,
+        config="--psm 6 -c tessedit_char_whitelist=0123456789"
+    )
+
+    m = re.search(r"([0-9]{5,})", txt)
+    return m.group(1) if m else ""

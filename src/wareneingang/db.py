@@ -129,3 +129,13 @@ def fetch_delivery_lines_by_customer(customer_no: str):
             WHERE dl.customer_no = ?
         """, (customer_no,)).fetchall()
         return [dict(r) for r in rows]
+
+def fetch_known_customers():
+    with connect() as con:
+        rows = con.execute("""
+            SELECT DISTINCT customer_no
+            FROM invoice_lines
+            WHERE customer_no IS NOT NULL AND customer_no <> ''
+        """).fetchall()
+
+        return [r["customer_no"] for r in rows]
