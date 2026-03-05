@@ -1,0 +1,7 @@
+pdfplumber
+pillow
+rapidfuzz
+pandas
+openpyxl
+pytesseract
+opencv-python
