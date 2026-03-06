@@ -11,6 +11,7 @@ from wareneingang.detect import detect_text_pdf
 from wareneingang.ocr import (
     ocr_pdf_to_text,
     ocr_image_to_text,
+    ocr_customer_header_roi_text,
 )
 from wareneingang.delivery_matcher import deliveries_from_lieferschein_file
 
@@ -62,9 +63,6 @@ def extract_match_key(text: str) -> str:
     cust = extract_customer_no(text)
     if cust:
         return f"CUST:{cust}"
-    ls = extract_lieferschein_no(text)
-    if ls:
-        return f"LS:{ls}"
     return ""
 
 
@@ -116,33 +114,38 @@ def invoice_extract_for_import(path: str):
 def delivery_extract_for_import(path: str):
     p = Path(path)
 
-    # OCR full text
+    # OCR full text (still useful for description matching / LS no fallback)
     text = ocr_pdf_to_text(path) if p.suffix.lower() == ".pdf" else ocr_image_to_text(path)
 
     Path("output").mkdir(exist_ok=True)
     Path("output/last_ocr_delivery.txt").write_text(text, encoding="utf-8", errors="ignore")
 
-    # NEW: do not "extract" customer from image
-    # Instead: match against known invoice customers
     known_customers = fetch_known_customers()
 
-    # Normalize text to digits/spaces only (tolerates OCR junk like 9O99O9)
-    digits_only = "".join(ch if ch.isdigit() else " " for ch in text)
-
     customer_no = ""
-    for cust in known_customers:
-        if cust and cust in digits_only:
-            customer_no = cust
-            break
 
-    if customer_no:
-        match_key = f"CUST:{customer_no}"
-        lines = deliveries_from_lieferschein_file(customer_no, text, path)
+    if p.suffix.lower() in {".jpg", ".jpeg", ".png"}:
+        # IMPORTANT: match customers only inside header ROI
+        header_txt = ocr_customer_header_roi_text(path)
+        header_digits = "".join(ch if ch.isdigit() else " " for ch in header_txt)
+
+        # pick best match (prefer longest / most specific)
+        best = ""
+        for cust in known_customers:
+            if not cust:
+                continue
+            if cust in header_digits:
+                if len(cust) > len(best):
+                    best = cust
+
+        customer_no = best
+
     else:
-        ls = extract_lieferschein_no(text)
-        match_key = f"LS:{ls}" if ls else ""
-        lines = []
+        # PDF: usually clean; safe to use normal extraction
+        customer_no = extract_customer_no(text)
 
+    match_key = f"CUST:{customer_no}" if customer_no else ""
+    lines = deliveries_from_lieferschein_file(customer_no, text, path) if customer_no else []
     for l in lines:
         l["match_key"] = match_key
 

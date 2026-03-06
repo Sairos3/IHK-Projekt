@@ -28,7 +28,12 @@ def export_status_xlsx(status_rows: List[Dict], out_path: str) -> None:
 
     for row in range(2, ws.max_row + 1):
         st = ws.cell(row=row, column=status_col).value
-        fill = FILL_OK if st == "OK" else FILL_PARTIAL if st == "PARTIAL" else FILL_PARKED
+        if st == "OK":
+            fill = FILL_OK
+        elif st == "PARTIAL":
+            fill = FILL_PARTIAL
+        else:
+            fill = FILL_PARKED
         for col in range(1, ws.max_column + 1):
             ws.cell(row=row, column=col).fill = fill
 

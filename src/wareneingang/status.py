@@ -5,8 +5,9 @@ from wareneingang.config import FUZZY_THRESHOLD
 
 def build_status(invoice_lines, delivery_lines):
     """
-    - Separate by customer_no (no cross-customer matching)
-    - Quantity allocation: delivered qty is consumed so it can't satisfy multiple invoices
+    - Separate by customer_no
+    - One invoice can consume multiple deliveries
+    - Deliveries that arrive first appear as PARKED_DELIVERY
     """
 
     inv_by_cust = defaultdict(list)
@@ -21,58 +22,99 @@ def build_status(invoice_lines, delivery_lines):
     out_rows = []
 
     for customer_no, invs in inv_by_cust.items():
+
         dels = del_by_cust.get(customer_no, [])
 
-        # remaining qty per delivery line (consumption)
+        # Track remaining quantities for delivery rows
         remaining = [float(d["qty"]) for d in dels]
 
-        # process invoices oldest first (optional)
+        # Process invoices oldest first
         invs = sorted(invs, key=lambda x: x.get("created_at", ""))
 
         for inv in invs:
+
             inv_desc = inv["description"]
             inv_qty = float(inv["qty"])
 
-            best_idx = None
-            best_score = -1
+            qty_needed = inv_qty
+            qty_delivered_total = 0.0
+
+            best_delivery_desc = ""
+            best_item_number = ""
+
+            candidates = []
 
             for idx, d in enumerate(dels):
+
                 if remaining[idx] <= 0:
                     continue
-                score = fuzz.token_sort_ratio(inv_desc.lower(), d["description"].lower())
-                if score > best_score:
-                    best_score = score
-                    best_idx = idx
 
-            if best_idx is None or best_score < FUZZY_THRESHOLD:
-                out_rows.append({
-                    "customer_no": customer_no,
-                    "item_number": "",
-                    "invoice_description": inv_desc,
-                    "delivery_description": "",
-                    "qty_ordered": inv_qty,
-                    "qty_delivered": 0.0,
-                    "open_qty": inv_qty,
-                    "status": "PARKED",
-                })
+                score = fuzz.token_sort_ratio(
+                    inv_desc.lower(),
+                    d["description"].lower()
+                )
+
+                if score >= FUZZY_THRESHOLD:
+                    candidates.append((idx, score, d))
+
+            # Best matches first
+            candidates.sort(key=lambda x: (-x[1], x[2].get("created_at", "")))
+
+            for idx, score, d in candidates:
+
+                if qty_needed <= 0:
+                    break
+
+                if remaining[idx] <= 0:
+                    continue
+
+                used = min(qty_needed, remaining[idx])
+
+                remaining[idx] -= used
+                qty_needed -= used
+                qty_delivered_total += used
+
+                if not best_delivery_desc:
+                    best_delivery_desc = d["description"]
+
+                if not best_item_number:
+                    best_item_number = d.get("item_number") or ""
+
+            open_qty = max(inv_qty - qty_delivered_total, 0.0)
+
+            if qty_delivered_total == 0:
+                status = "PARKED_INVOICE"
+            elif open_qty == 0:
+                status = "OK"
+            else:
+                status = "PARTIAL"
+
+            out_rows.append({
+                "customer_no": customer_no,
+                "item_number": best_item_number,
+                "invoice_description": inv_desc,
+                "delivery_description": best_delivery_desc,
+                "qty_ordered": inv_qty,
+                "qty_delivered": qty_delivered_total,
+                "open_qty": open_qty,
+                "status": status,
+            })
+
+        # AFTER invoices → add leftover deliveries
+        for idx, d in enumerate(dels):
+
+            if remaining[idx] <= 0:
                 continue
-
-            d = dels[best_idx]
-            used = min(inv_qty, remaining[best_idx])
-            remaining[best_idx] -= used
-
-            open_qty = max(inv_qty - used, 0.0)
-            status = "OK" if open_qty == 0 else "PARTIAL" if used > 0 else "PARKED"
 
             out_rows.append({
                 "customer_no": customer_no,
                 "item_number": d.get("item_number") or "",
-                "invoice_description": inv_desc,
+                "invoice_description": "",
                 "delivery_description": d["description"],
-                "qty_ordered": inv_qty,
-                "qty_delivered": used,
-                "open_qty": open_qty,
-                "status": status,
+                "qty_ordered": 0.0,
+                "qty_delivered": float(d["qty"]),
+                "open_qty": remaining[idx],
+                "status": "PARKED_DELIVERY",
             })
 
     return out_rows
